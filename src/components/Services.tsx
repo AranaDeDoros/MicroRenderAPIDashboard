@@ -4,8 +4,10 @@ import {
     Play,
     Square,
     RotateCcw,
+    LoaderCircle,
     type LucideIcon,
 } from "lucide-react"
+
 
 function formatDate(value: string) {
     return new Date(value).toLocaleString()
@@ -33,14 +35,14 @@ function ServiceActionButton({
     return (
         <div>
             <button
-            title={action}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium text-amber-200 transition hover:border-amber-400  disabled:cursor-not-allowed disabled:opacity-40 ${className}`}
-            disabled={disabled}
-            onClick={onClick}
-            type="button"
-        >
-            <Icon size={16} />
-        </button>
+                title={action}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium text-amber-200 transition hover:border-amber-400  disabled:cursor-not-allowed disabled:opacity-40 ${className}`}
+                disabled={disabled}
+                onClick={onClick}
+                type="button"
+            >
+                <Icon size={16} />
+            </button>
         </div>
     )
 }
@@ -53,7 +55,8 @@ export function Services() {
         return (
             <div className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4">
                 <h2 className="text-lg font-semibold text-amber-300">Services</h2>
-                <p className="mt-2 text-sm text-olive-200">Loading services...</p>
+
+                <span className="mt-2 text-sm text-olive-200">Loading services <LoaderCircle className="animate-spin inline" size={16} /></span>
             </div>
         )
     }
@@ -93,8 +96,8 @@ export function Services() {
                             const resumeDisabled = !isSuspended || actions.resume.isPending
                             const suspendDisabled = isSuspended || actions.suspend.isPending
                             const restartDisabled = isSuspended || actions.restart.isPending
-
                             return (
+
                                 <tr key={service.id} className="align-top text-olive-100">
                                     <td className="border-b border-emerald-950 px-3 py-3">
                                         <div className="font-medium text-white">{service.name}</div>

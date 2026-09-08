@@ -1,3 +1,4 @@
+import { LoaderCircle } from "lucide-react"
 import { usePostgresInstancesQuery } from "../api/useServicesQuery"
 import type { RenderPostgresResponse } from "../types/render"
 
@@ -17,7 +18,7 @@ export function PostgresInstances() {
             <div className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4">
                 <h2 className="text-lg font-semibold text-amber-300">Postgres</h2>
                 <p className="mt-2 text-sm text-olive-200">
-                    Loading postgres services...
+                    <span className="mt-2 text-sm text-olive-200">Loading services <LoaderCircle className="animate-spin inline" size={16} /></span>
                 </p>
             </div>
         )
