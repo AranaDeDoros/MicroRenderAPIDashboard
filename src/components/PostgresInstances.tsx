@@ -1,6 +1,7 @@
 import { LoaderCircle } from "lucide-react"
 import { usePostgresInstancesQuery } from "../api/useServicesQuery"
 import type { RenderPostgresResponse } from "../types/render"
+import { useUI } from "../hooks/useUI"
 
 function formatDate(value: string) {
     return new Date(value).toLocaleString()
@@ -11,7 +12,8 @@ function formatDiskSize(size: RenderPostgresResponse["postgres"]["diskSizeGb"]) 
 }
 
 export function PostgresInstances() {
-    const postgresInstancesQuery = usePostgresInstancesQuery()
+    const postgresInstancesQuery = usePostgresInstancesQuery();
+    const { postgresOpen, setPostgresOpen } = useUI();
 
     if (postgresInstancesQuery.isLoading) {
         return (
@@ -38,9 +40,9 @@ export function PostgresInstances() {
     const postgresInstances = postgresInstancesQuery.data ?? []
 
     return (
-        <div className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4">
-            <h2 className="text-lg font-semibold text-amber-300 undraggable">Postgres</h2>
-
+        <details className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4" onToggle={(event) => setPostgresOpen(event.currentTarget.open)} open={postgresOpen}>
+            <summary className="text-lg font-semibold text-amber-300 undraggable">Postgres ({postgresInstances && postgresInstances.length})
+            </summary>
             <div className="mt-4 overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
                     <thead>
@@ -74,6 +76,6 @@ export function PostgresInstances() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </details>
     )
 }

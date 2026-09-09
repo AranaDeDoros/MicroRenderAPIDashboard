@@ -1,4 +1,5 @@
 import { useServiceActions, useServicesQuery } from "../api/useServicesQuery"
+import { useUI } from "../hooks/useUI"
 import type { RenderServiceResponse, ServiceAction } from "../types/render"
 import {
     Play,
@@ -50,6 +51,8 @@ function ServiceActionButton({
 export function Services() {
     const servicesQuery = useServicesQuery()
     const actions = useServiceActions()
+    const { servicesOpen, setServicesOpen } = useUI();
+
 
     if (servicesQuery.isLoading) {
         return (
@@ -75,9 +78,10 @@ export function Services() {
     const services = servicesQuery.data ?? []
 
     return (
-        <div className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4">
-            <h2 className="text-lg font-semibold text-amber-300 undraggable">Services</h2>
-
+        <details className="rounded-lg border border-emerald-800 bg-emerald-900/70 p-4" onToggle={(event) => {
+            setServicesOpen(event.currentTarget.open)
+        }} open={servicesOpen} >
+            <summary className="text-lg font-semibold text-amber-300 undraggable">Services ({services && services.length})</summary>
             <div className="mt-4 overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
                     <thead>
@@ -144,6 +148,6 @@ export function Services() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </details>
     )
 }

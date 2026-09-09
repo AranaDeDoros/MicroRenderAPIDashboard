@@ -57,7 +57,9 @@
 }
 
 
-header p, header h1, .undraggable {
+header p,
+header h1,
+.undraggable {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -69,3 +71,8 @@ button:not(:disabled) {
   cursor: pointer;
 }
 
+
+summary::marker {
+  font-size: 1rem;
+  cursor: pointer;
+}
